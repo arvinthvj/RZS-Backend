@@ -1,30 +1,30 @@
 'use strict';
 
 const firebase = require('../db');
-const Student = require('../models/student');
+const ResortDataClass = require('../models/resort');
 const firestore = firebase.firestore();
 
 
-const addStudent = async (req, res, next) => {
+const addResort = async (req, res, next) => {
     try {
         const data = req.body;
-        await firestore.collection('students').doc().set(data);
+        await firestore.collection('hotelData').doc().set(data);
         res.send('Record saved successfuly');
     } catch (error) {
         res.status(400).send(error.message);
     }
 }
 
-const getAllStudents = async (req, res, next) => {
+const getAllResorts = async (req, res, next) => {
     try {
-        const students = await firestore.collection('students');
-        const data = await students.get();
-        const studentsArray = [];
+        const resortData = await firestore.collection('hotelData');
+        const data = await resortData.get();
+        const resortDataArray = [];
         if(data.empty) {
             res.status(404).send('No student record found');
         }else {
             data.forEach(doc => {debugger
-                const student = new Student(
+                const resortData = new ResortDataClass(
                     doc.id,
                     doc.data().average_price_to_order,
                     doc.data().follows_all_covid_protocals,
@@ -32,24 +32,24 @@ const getAllStudents = async (req, res, next) => {
                     doc.data().kind_of_food_available,
                     doc.data().menu_available,
                     doc.data().offer_available,
-                    doc.data().promoted
+                    doc.data().promoted,
                 );
-                studentsArray.push(student);
+                resortDataArray.push(resortData);
             });
-            res.send(studentsArray);
+            res.send(resortDataArray);
         }
     } catch (error) {
         res.status(400).send(error.message);
     }
 }
 
-const getStudent = async (req, res, next) => {
+const getResort = async (req, res, next) => {
     try {
         const id = req.params.id;
-        const student = await firestore.collection('students').doc(id);
-        const data = await student.get();
+        const resortById = await firestore.collection('hotelData').doc(id);
+        const data = await resortById.get();
         if(!data.exists) {
-            res.status(404).send('Student with the given ID not found');
+            res.status(404).send('Resort with the given ID not found');
         }else {
             res.send(data.data());
         }
@@ -58,22 +58,22 @@ const getStudent = async (req, res, next) => {
     }
 }
 
-const updateStudent = async (req, res, next) => {
+const updateResort = async (req, res, next) => {
     try {
         const id = req.params.id;
         const data = req.body;
-        const student =  await firestore.collection('students').doc(id);
-        await student.update(data);
-        res.send('Student record updated successfuly');        
+        const resort =  await firestore.collection('hotelData').doc(id);
+        await resort.update(data);
+        res.send('Resort record updated successfuly');        
     } catch (error) {
         res.status(400).send(error.message);
     }
 }
 
-const deleteStudent = async (req, res, next) => {
+const deleteResort = async (req, res, next) => {
     try {
         const id = req.params.id;
-        await firestore.collection('students').doc(id).delete();
+        await firestore.collection('hotelData').doc(id).delete();
         res.send('Record deleted successfuly');
     } catch (error) {
         res.status(400).send(error.message);
@@ -81,9 +81,9 @@ const deleteStudent = async (req, res, next) => {
 }
 
 module.exports = {
-    addStudent,
-    getAllStudents,
-    getStudent,
-    updateStudent,
-    deleteStudent
+    addResort,
+    getAllResorts,
+    getResort,
+    updateResort,
+    deleteResort
 }
