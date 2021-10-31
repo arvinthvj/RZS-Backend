@@ -23,19 +23,16 @@ const getAllStudents = async (req, res, next) => {
         if(data.empty) {
             res.status(404).send('No student record found');
         }else {
-            data.forEach(doc => {
+            data.forEach(doc => {debugger
                 const student = new Student(
                     doc.id,
-                    doc.data().firstName,
-                    doc.data().lastName,
-                    doc.data().fatherName,
-                    doc.data().class,
-                    doc.data().age,
-                    doc.data().phoneNumber,
-                    doc.data().subject,
-                    doc.data().year,
-                    doc.data().semester,
-                    doc.data().status
+                    doc.data().average_price_to_order,
+                    doc.data().follows_all_covid_protocals,
+                    doc.data().hotel_name,
+                    doc.data().kind_of_food_available,
+                    doc.data().menu_available,
+                    doc.data().offer_available,
+                    doc.data().promoted
                 );
                 studentsArray.push(student);
             });
