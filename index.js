@@ -15,4 +15,4 @@ app.use('/api', studentRoutes.routes);
 
 
 
-app.listen(config.HOST_URL, () => console.log('App is listening on url http://localhost:' + config.port));
+app.listen(config.url, () => console.log('App is listening on url http://localhost:' + config.port));
