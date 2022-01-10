@@ -1,5 +1,6 @@
 'use strict';
 
+const { default: axios } = require('axios');
 const firebase = require('../db');
 const ResortDataClass = require('../models/resort');
 const firestore = firebase.firestore();
@@ -80,10 +81,27 @@ const deleteResort = async (req, res, next) => {
     }
 }
 
+
+// map data
+
+const getMapData = async (req, res, next) => {
+    try {
+        let data = req.body;
+        let key = `AIzaSyBHkESRyB7oJAtl15zRm6cXnBBoe2rS9Ik`;
+        let mapUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${data.latitude},${data.longitude}&key=${key}`;
+        let dataFromMap = await axios.get(mapUrl)
+        // await firestore.collection('hotelData').doc(id).delete();
+        res.send(dataFromMap.data);
+    } catch (error) {
+        res.status(400).send(error);
+    }
+}
+
 module.exports = {
     addResort,
     getAllResorts,
     getResort,
     updateResort,
-    deleteResort
+    deleteResort,
+    getMapData
 }
