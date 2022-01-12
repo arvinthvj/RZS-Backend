@@ -86,9 +86,11 @@ const deleteResort = async (req, res, next) => {
 
 const getMapData = async (req, res, next) => {
     try {
-        let data = req.body;
+        // let data = req.body;
+        let lat = Number(req.url.split("latitude")[1].split("&")[0].replace("=",""));
+        let lng = Number(req.url.split("longitude")[1].replace("=",""));
         let key = `AIzaSyBHkESRyB7oJAtl15zRm6cXnBBoe2rS9Ik`;
-        let mapUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${data.latitude},${data.longitude}&key=${key}`;
+        let mapUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${key}`;
         let dataFromMap = await axios.get(mapUrl)
         // await firestore.collection('hotelData').doc(id).delete();
         res.send(dataFromMap.data);
