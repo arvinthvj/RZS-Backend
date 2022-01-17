@@ -19,7 +19,7 @@ router.put("/resort/:id", updateResort);
 router.delete("/resort/:id", deleteResort);
 router.get('/mapData',getMapData);
 router.get('/shopData',getAllShops);
-router.post("/addresort", addShop);
+router.post("/addShop", addShop);
 
 module.exports = {
   routes: router,
