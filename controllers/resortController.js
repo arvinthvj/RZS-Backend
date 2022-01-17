@@ -99,11 +99,39 @@ const getMapData = async (req, res, next) => {
     }
 }
 
+
+//shoppingData 
+
+const getAllShops = async (req, res, next) => {
+    try {
+        const shoppingData = await firestore.collection('shopData');
+        let data = await shoppingData.get();
+        const shopArr = [];
+        if(data.empty) {
+            res.status(404).send('No student record found');
+        }else {
+            data.forEach(doc => {
+                
+                   
+                shopArr.push(doc.data())
+                    
+                
+            });
+            res.send(shopArr);
+        }
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
+
+
 module.exports = {
     addResort,
     getAllResorts,
     getResort,
     updateResort,
     deleteResort,
-    getMapData
+    getMapData,
+    getAllShops
 }
