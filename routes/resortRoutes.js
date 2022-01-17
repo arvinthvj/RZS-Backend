@@ -6,7 +6,8 @@ const {
   updateResort,
   deleteResort,
   getMapData,
-  getAllShops
+  getAllShops,
+  addShop
 } = require("../controllers/resortController");
 
 const router = express.Router();
@@ -18,6 +19,8 @@ router.put("/resort/:id", updateResort);
 router.delete("/resort/:id", deleteResort);
 router.get('/mapData',getMapData);
 router.get('/shopData',getAllShops);
+router.post("/addresort", addShop);
+
 module.exports = {
   routes: router,
 };

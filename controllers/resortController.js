@@ -125,6 +125,16 @@ const getAllShops = async (req, res, next) => {
 }
 
 
+const addShop = async (req, res, next) => {
+    try {
+        const data = req.body;
+        await firestore.collection('shopData').doc().set(data);
+        res.send('Record saved successfuly');
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
 
 module.exports = {
     addResort,
@@ -133,5 +143,6 @@ module.exports = {
     updateResort,
     deleteResort,
     getMapData,
-    getAllShops
+    getAllShops,
+    addShop
 }
