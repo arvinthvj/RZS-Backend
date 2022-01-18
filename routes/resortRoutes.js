@@ -10,7 +10,8 @@ const {
   addShop,
   addHomeGenieDataBycategories,
   deleteGenieById,
-  getAllHGByCategory
+  getAllHGByCategory,
+  deleteGShopDataBy
 } = require("../controllers/resortController");
 
 const router = express.Router();
@@ -25,6 +26,7 @@ router.get('/shopData',getAllShops);
 router.post("/addShop", addShop);
 router.post("/addHomeGenieDataBycategories", addHomeGenieDataBycategories);
 router.delete("/deleteHG/:id", deleteGenieById);
+router.delete("/deleteGShopDataBy/:id", deleteGShopDataBy);
 router.get('/getGenieRecordsByAllCategories',getAllHGByCategory);
 module.exports = {
   routes: router,

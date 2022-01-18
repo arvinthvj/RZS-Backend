@@ -111,11 +111,8 @@ const getAllShops = async (req, res, next) => {
             res.status(404).send('No student record found');
         }else {
             data.forEach(doc => {
-                
-                   
-                shopArr.push(doc.data())
-                    
-                
+                let id = doc.id;
+                shopArr.push({id,...doc.data()})
             });
             res.send(shopArr);
         }
@@ -124,6 +121,15 @@ const getAllShops = async (req, res, next) => {
     }
 }
 
+const deleteGShopDataBy = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        await firestore.collection('HomeGenieDataBycategories').doc(id).delete();
+        res.send('ShopData Record deleted by id successfuly');
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
 
 const addShop = async (req, res, next) => {
     try {
@@ -192,5 +198,6 @@ module.exports = {
     addShop,
     addHomeGenieDataBycategories,
     deleteGenieById,
-    getAllHGByCategory
+    getAllHGByCategory,
+    deleteGShopDataBy
 }
