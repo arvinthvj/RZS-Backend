@@ -168,9 +168,9 @@ const getAllHGByCategory = async (req, res, next) => {
             res.status(404).send('No Genie records found');
         }else {
             data.forEach(doc => {
-                
+                let id = doc.id ;
                    
-                GenieArr.push(doc.data())
+                GenieArr.push({ id , ...doc.data()})
                     
                 
             });
