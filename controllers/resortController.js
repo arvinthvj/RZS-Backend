@@ -135,6 +135,16 @@ const addShop = async (req, res, next) => {
     }
 }
 
+const addHomeGenieDataBycategories = async (req, res, next) => {
+    try {
+        const data = req.body;
+        await firestore.collection('HomeGenieDataBycategories').doc().set(data);
+        res.send('Record saved successfuly');
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
 
 module.exports = {
     addResort,
@@ -144,5 +154,6 @@ module.exports = {
     deleteResort,
     getMapData,
     getAllShops,
-    addShop
+    addShop,
+    addHomeGenieDataBycategories
 }

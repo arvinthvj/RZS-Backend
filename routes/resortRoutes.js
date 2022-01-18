@@ -7,7 +7,8 @@ const {
   deleteResort,
   getMapData,
   getAllShops,
-  addShop
+  addShop,
+  addHomeGenieDataBycategories
 } = require("../controllers/resortController");
 
 const router = express.Router();
@@ -20,6 +21,7 @@ router.delete("/resort/:id", deleteResort);
 router.get('/mapData',getMapData);
 router.get('/shopData',getAllShops);
 router.post("/addShop", addShop);
+router.post("/addHomeGenieDataBycategories", addHomeGenieDataBycategories);
 
 module.exports = {
   routes: router,
