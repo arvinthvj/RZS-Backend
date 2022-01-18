@@ -124,7 +124,7 @@ const getAllShops = async (req, res, next) => {
 const deleteGShopDataBy = async (req, res, next) => {
     try {
         const id = req.params.id;
-        await firestore.collection('HomeGenieDataBycategories').doc(id).delete();
+        await firestore.collection('shopData').doc(id).delete();
         res.send('ShopData Record deleted by id successfuly');
     } catch (error) {
         res.status(400).send(error.message);
