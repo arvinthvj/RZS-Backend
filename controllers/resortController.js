@@ -144,7 +144,42 @@ const addHomeGenieDataBycategories = async (req, res, next) => {
         res.status(400).send(error.message);
     }
 }
+// delete home genie data by categories
 
+const deleteGenieById = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        await firestore.collection('HomeGenieDataBycategories').doc(id).delete();
+        res.send('HomeGenieDataBycategory Record deleted by id successfuly');
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
+
+
+//get all data from home geneie by category;
+const getAllHGByCategory = async (req, res, next) => {
+    try {
+        const HomeGenieData = await firestore.collection('HomeGenieDataBycategories');
+        let data = await HomeGenieData.get();
+        const GenieArr = [];
+        if(data.empty) {
+            res.status(404).send('No Genie records found');
+        }else {
+            data.forEach(doc => {
+                
+                   
+                GenieArr.push(doc.data())
+                    
+                
+            });
+            res.send(GenieArr);
+        }
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
 
 module.exports = {
     addResort,
@@ -155,5 +190,7 @@ module.exports = {
     getMapData,
     getAllShops,
     addShop,
-    addHomeGenieDataBycategories
+    addHomeGenieDataBycategories,
+    deleteGenieById,
+    getAllHGByCategory
 }
