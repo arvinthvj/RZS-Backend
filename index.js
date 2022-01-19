@@ -4,6 +4,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const config = require('./config');
 const resortRoutes = require('./routes/resortRoutes');
+const { twitterRoutes } = require('./routes/twitterRoutes');
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use('/api', resortRoutes.routes);
+app.use('/tw', twitterRoutes);
 
 
 

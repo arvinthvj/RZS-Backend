@@ -99,7 +99,17 @@ const getMapData = async (req, res, next) => {
     }
 }
 
+// send in a batch home genie
+const addBatchHomeGenieDataBycategories = async (req, res, next) => {
+    try {
+        const data = req.body;
 
+        await firestore.collection('HomeGenieDataBycategories').doc().set(data);
+        res.send('Multiple data Record saved successfuly');
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
 //shoppingData 
 
 const getAllShops = async (req, res, next) => {
@@ -144,8 +154,10 @@ const addShop = async (req, res, next) => {
 const addHomeGenieDataBycategories = async (req, res, next) => {
     try {
         const data = req.body;
-        await firestore.collection('HomeGenieDataBycategories').doc().set(data);
+        let awaited = await firestore.collection('HomeGenieDataBycategories').doc().set(data);
         res.send('Record saved successfuly');
+        console.log(awaited);
+        
     } catch (error) {
         res.status(400).send(error.message);
     }
