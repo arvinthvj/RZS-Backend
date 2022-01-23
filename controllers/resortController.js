@@ -131,6 +131,43 @@ const getAllShops = async (req, res, next) => {
     }
 }
 
+
+const getAllShopsHari = async (req, res, next) => {
+    try {
+        const shoppingData = await firestore.collection('hariShop');
+        let data = await shoppingData.get();
+        const shopArr = [];
+        if(data.empty) {
+            res.status(404).send('No student record found');
+        }else {
+            data.forEach(doc => {
+                let id = doc.id;
+                shopArr.push({id,...doc.data()})
+            });
+            res.send(shopArr);
+        }
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+const deleteGShopHariDataBy = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        await firestore.collection('hariShop').doc(id).delete();
+        res.send('ShopData Record deleted by id successfuly');
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+const addHariShop = async (req, res, next) => {
+    try {
+        const data = req.body;
+        await firestore.collection('hariShop').doc().set(data);
+        res.send('Record saved successfuly');
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
 const deleteGShopDataBy = async (req, res, next) => {
     try {
         const id = req.params.id;
@@ -211,5 +248,8 @@ module.exports = {
     addHomeGenieDataBycategories,
     deleteGenieById,
     getAllHGByCategory,
-    deleteGShopDataBy
+    deleteGShopDataBy,
+    addHariShop,
+    deleteGShopHariDataBy,
+    getAllShopsHari
 }
