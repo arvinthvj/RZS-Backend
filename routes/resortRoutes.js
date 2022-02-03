@@ -14,7 +14,10 @@ const {
   deleteGShopDataBy,
   deleteGShopHariDataBy,
   getAllShopsHari,
-  addHariShop
+  addHariShop,
+  addCollectionsWithReferenceToMainClassification,
+  getAllshopsCollectionsWithReference,
+  deleteGShopDataByCollectionsWithReference
 } = require("../controllers/resortController");
 
 const router = express.Router();
@@ -26,10 +29,15 @@ router.put("/resort/:id", updateResort);
 router.delete("/resort/:id", deleteResort);
 router.get('/mapData',getMapData);
 router.get('/shopData',getAllShops);
+router.get('/shopDataByCollection',getAllshopsCollectionsWithReference);
+
 router.post("/addShop", addShop);
+router.post("/addByCollection", addCollectionsWithReferenceToMainClassification);
 router.post("/addHomeGenieDataBycategories", addHomeGenieDataBycategories);
 router.delete("/deleteHG/:id", deleteGenieById);
 router.delete("/deleteGShopDataBy/:id", deleteGShopDataBy);
+router.delete("/deleteGShopDataByCollection/:id", deleteGShopDataByCollectionsWithReference);
+
 router.get('/getGenieRecordsByAllCategories',getAllHGByCategory);
 
 

@@ -5,11 +5,12 @@ const bodyParser = require('body-parser');
 const config = require('./config');
 const resortRoutes = require('./routes/resortRoutes');
 const { twitterRoutes } = require('./routes/twitterRoutes');
+const { task } = require('./CronIt/WhatToDo');
 
 const app = express();
 
 app.use(express.json());
-
+task.start();
 app.use(cors());
 app.use(bodyParser.json());
 

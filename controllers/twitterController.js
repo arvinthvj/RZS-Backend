@@ -25,7 +25,7 @@ const sendATweet = async (req, res, next) => {
 
 const deleteATweetById = async (req, res, next) => {
   try {
-	  debugger
+	  // debugger
 	const request = {
 		url: `https://api.twitter.com/2/tweets/${req.params.id}`,
 		method: "DELETE"

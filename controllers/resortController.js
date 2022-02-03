@@ -131,6 +131,24 @@ const getAllShops = async (req, res, next) => {
     }
 }
 
+const getAllshopsCollectionsWithReference = async (req, res, next) => {
+    try {
+        const shoppingData = await firestore.collection('CollectionsWithReference');
+        let data = await shoppingData.get();
+        const shopArr = [];
+        if(data.empty) {
+            res.status(404).send('No CollectionsWithReference record found');
+        }else {
+            data.forEach(doc => {
+                let id = doc.id;
+                shopArr.push({id,...doc.data()})
+            });
+            res.send(shopArr);
+        }
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
 
 const getAllShopsHari = async (req, res, next) => {
     try {
@@ -178,11 +196,31 @@ const deleteGShopDataBy = async (req, res, next) => {
     }
 }
 
+const deleteGShopDataByCollectionsWithReference = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        await firestore.collection('CollectionsWithReference').doc(id).delete();
+        res.send('CollectionsWithReference Record deleted by id successfuly');
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
 const addShop = async (req, res, next) => {
     try {
         const data = req.body;
         await firestore.collection('shopData').doc().set(data);
         res.send('Record saved successfuly');
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
+const addCollectionsWithReferenceToMainClassification = async (req, res, next) => {
+    try {
+        const data = req.body;
+        await firestore.collection('CollectionsWithReference').doc().set(data);
+        res.send('Record saved successfuly to CollectionsWithReference');
     } catch (error) {
         res.status(400).send(error.message);
     }
@@ -245,10 +283,13 @@ module.exports = {
     getMapData,
     getAllShops,
     addShop,
+    addCollectionsWithReferenceToMainClassification,
     addHomeGenieDataBycategories,
     deleteGenieById,
     getAllHGByCategory,
+    getAllshopsCollectionsWithReference,
     deleteGShopDataBy,
+    deleteGShopDataByCollectionsWithReference,
     addHariShop,
     deleteGShopHariDataBy,
     getAllShopsHari
