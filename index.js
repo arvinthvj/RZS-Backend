@@ -15,7 +15,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use('/api', resortRoutes.routes);
-app.use('/tw', twitterRoutes);
+app.use('/tw', twitterRoutes) ;
 
 
 
