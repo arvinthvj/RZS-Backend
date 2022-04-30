@@ -16,6 +16,16 @@ const addResort = async (req, res, next) => {
     }
 }
 
+const addRegistration = async (req, res, next) => {
+    try {
+        const data = req.body;
+        await firestore.collection('registration').doc().set(data);
+        res.send('Record saved successfuly');
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
 const getAllResorts = async (req, res, next) => {
     try {
         const resortData = await firestore.collection('hotelData');
@@ -276,6 +286,7 @@ const getAllHGByCategory = async (req, res, next) => {
 
 module.exports = {
     addResort,
+    addRegistration,
     getAllResorts,
     getResort,
     updateResort,

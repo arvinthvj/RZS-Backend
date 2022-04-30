@@ -1,5 +1,6 @@
 const express = require("express");
 const {
+  addRegistration,
   addResort,
   getAllResorts,
   getResort,
@@ -23,6 +24,7 @@ const {
 const router = express.Router();
 
 router.post("/addresort", addResort);
+router.post("/addregistration", addRegistration);
 router.get("/allResorts", getAllResorts);
 router.get("/resort/:id", getResort);
 router.put("/resort/:id", updateResort);
