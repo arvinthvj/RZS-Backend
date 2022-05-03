@@ -120,6 +120,26 @@ const addBatchHomeGenieDataBycategories = async (req, res, next) => {
         res.status(400).send(error.message);
     }
 }
+
+//registration data fetch all (GET METHOD)
+const getAllregistrationdata = async (req, res, next) => {
+    try {
+        const registrationData = await firestore.collection('registration');
+        let data = await registrationData.get();
+        const regArr = [];
+        if(data.empty) {
+            res.status(404).send('No registration record found');
+        }else {
+            data.forEach(doc => {
+                let id = doc.id;
+                regArr.push({id,...doc.data()})
+            });
+            res.send(regArr);
+        }
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
 //shoppingData 
 
 const getAllShops = async (req, res, next) => {
@@ -287,6 +307,7 @@ const getAllHGByCategory = async (req, res, next) => {
 module.exports = {
     addResort,
     addRegistration,
+    getAllregistrationdata,
     getAllResorts,
     getResort,
     updateResort,

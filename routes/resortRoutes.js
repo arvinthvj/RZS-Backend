@@ -18,12 +18,14 @@ const {
   addHariShop,
   addCollectionsWithReferenceToMainClassification,
   getAllshopsCollectionsWithReference,
-  deleteGShopDataByCollectionsWithReference
+  deleteGShopDataByCollectionsWithReference,
+  getAllregistrationdata
 } = require("../controllers/resortController");
 
 const router = express.Router();
 
 router.post("/addresort", addResort);
+router.get("/getregdata", getAllregistrationdata);
 router.post("/addregistration", addRegistration);
 router.get("/allResorts", getAllResorts);
 router.get("/resort/:id", getResort);
