@@ -18,8 +18,9 @@ const addResort = async (req, res, next) => {
 
 const addRegistration = async (req, res, next) => {
     try {
+        const collectionId = req.body.collectionId
         const data = req.body;
-        await firestore.collection('registration').doc().set(data);
+        await firestore.collection(collectionId).doc().set(data);
         res.send('Record saved successfuly');
     } catch (error) {
         res.status(400).send(error.message);
