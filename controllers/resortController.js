@@ -125,6 +125,7 @@ const addBatchHomeGenieDataBycategories = async (req, res, next) => {
 //registration data fetch all (GET METHOD)
 const getAllregistrationdata = async (req, res, next) => {
     try {
+        debugger
         const registrationData = await firestore.collection(req.query.fromCollectionId);
         let data = await registrationData.get();
         const regArr = [];
