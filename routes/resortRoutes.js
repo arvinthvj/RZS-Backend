@@ -8,6 +8,7 @@ const {
   deleteResort,
   getMapData,
   getAllShops,
+  getAllMyntraData,
   addShop,
   addHomeGenieDataBycategories,
   deleteGenieById,
@@ -34,7 +35,7 @@ router.delete("/resort/:id", deleteResort);
 router.get('/mapData',getMapData);
 router.get('/shopData',getAllShops);
 router.get('/shopDataByCollection',getAllshopsCollectionsWithReference);
-
+router.get('/myntraDataAll' , getAllMyntraData);
 router.post("/addShop", addShop);
 router.post("/addByCollection", addCollectionsWithReferenceToMainClassification);
 router.post("/addHomeGenieDataBycategories", addHomeGenieDataBycategories);

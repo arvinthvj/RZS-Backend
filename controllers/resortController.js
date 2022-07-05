@@ -162,6 +162,24 @@ const getAllShops = async (req, res, next) => {
         res.status(400).send(error.message);
     }
 }
+const getAllMyntraData = async (req, res, next) => {
+    try {
+        const myntraData = await firestore.collection('testSharmila');
+        let data = await myntraData.get();
+        const myntraArr = [];
+        if(data.empty) {
+            res.status(404).send('No Myntra record found');
+        }else {
+            data.forEach(doc => {
+                let id = doc.id;
+                myntraArr.push({id,...doc.data()})
+            });
+            res.send(myntraArr);
+        }
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
 
 const getAllshopsCollectionsWithReference = async (req, res, next) => {
     try {
@@ -316,6 +334,7 @@ module.exports = {
     deleteResort,
     getMapData,
     getAllShops,
+    getAllMyntraData,
     addShop,
     addCollectionsWithReferenceToMainClassification,
     addHomeGenieDataBycategories,
