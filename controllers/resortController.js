@@ -227,6 +227,37 @@ const deleteGShopHariDataBy = async (req, res, next) => {
         res.status(400).send(error.message);
     }
 }
+
+//login data
+const loginHandle = async (req, res, next) => {
+    try {
+        let data = req.body;
+        await firestore.collection('sathishtasklogindata').doc().set(data);
+        res.send('Record saved successfuly');
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
+const getUserDetails = async (req, res, next) => {
+    try {
+        let reqData = req.body;
+        const details = await firestore.collection('hariShop');
+        let awaitedDetails = await details.get();
+        const allData = [];
+        awaitedDetails.forEach(doc => {
+            let id = doc.id;
+            allData.push({id,...doc.data()})
+        });
+        if(!allData.filter(e=> e.userId == reqData.userId && e.userPass == reqData.userPass).length) {
+            res.status(404).send('Something is Wrong');
+        }else {
+            res.send(allData.filter(e=> e.userId == reqData.userId && e.userPass == reqData.userPass));
+        }
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
 const addHariShop = async (req, res, next) => {
     try {
         const data = req.body;
@@ -344,6 +375,8 @@ module.exports = {
     deleteGShopDataBy,
     deleteGShopDataByCollectionsWithReference,
     addHariShop,
+    loginHandle,
+    getUserDetails,
     deleteGShopHariDataBy,
     getAllShopsHari
 }

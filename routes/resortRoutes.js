@@ -17,6 +17,8 @@ const {
   deleteGShopHariDataBy,
   getAllShopsHari,
   addHariShop,
+  loginHandle,
+  getUserDetails,
   addCollectionsWithReferenceToMainClassification,
   getAllshopsCollectionsWithReference,
   deleteGShopDataByCollectionsWithReference,
@@ -50,6 +52,10 @@ router.get('/getGenieRecordsByAllCategories',getAllHGByCategory);
 router.get('/getAllShopsHari',getAllShopsHari);
 router.post("/addHariShop", addHariShop);
 router.delete("/deleteGShopHariDataBy/:id", deleteGShopHariDataBy);
+
+//sathish task 15-07-2022
+router.post("/signUp-sathish", loginHandle);
+router.get('/login-sathish', getUserDetails);
 
 
 
