@@ -55,7 +55,7 @@ router.delete("/deleteGShopHariDataBy/:id", deleteGShopHariDataBy);
 
 //sathish task 15-07-2022
 router.post("/signUp-sathish", loginHandle);
-router.get('/login-sathish', getUserDetails);
+router.post('/login-sathish', getUserDetails);
 
 
 
