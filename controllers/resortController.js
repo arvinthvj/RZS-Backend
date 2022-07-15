@@ -231,6 +231,7 @@ const deleteGShopHariDataBy = async (req, res, next) => {
 //login data
 const loginHandle = async (req, res, next) => {
     try {
+        debugger
         let data = req.body;
         await firestore.collection('sathishtasklogindata').doc().set(data);
         res.send('Record saved successfuly');
@@ -241,8 +242,9 @@ const loginHandle = async (req, res, next) => {
 
 const getUserDetails = async (req, res, next) => {
     try {
+        debugger
         let reqData = req.body;
-        const details = await firestore.collection('hariShop');
+        const details = await firestore.collection('sathishtasklogindata');
         let awaitedDetails = await details.get();
         const allData = [];
         awaitedDetails.forEach(doc => {
